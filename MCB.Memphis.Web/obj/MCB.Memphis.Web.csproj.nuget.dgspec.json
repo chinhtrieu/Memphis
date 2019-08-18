@@ -1,0 +1,221 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\Workspace\\Memphis\\MCB.Memphis.Web\\MCB.Memphis.Web.csproj": {}
+  },
+  "projects": {
+    "E:\\Workspace\\Memphis\\MCB.Memphis.Core\\MCB.Memphis.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Workspace\\Memphis\\MCB.Memphis.Core\\MCB.Memphis.Core.csproj",
+        "projectName": "MCB.Memphis.Core",
+        "projectPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Core\\MCB.Memphis.Core.csproj",
+        "packagesPath": "C:\\Users\\trieu\\.nuget\\packages\\",
+        "outputPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\trieu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://172.22.58.11:82/nuget/mcb_nuget/": {},
+          "http://nuget.episerver.com/feed/packages.svc/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100-preview8-013656\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\Workspace\\Memphis\\MCB.Memphis.Services\\MCB.Memphis.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Workspace\\Memphis\\MCB.Memphis.Services\\MCB.Memphis.Services.csproj",
+        "projectName": "MCB.Memphis.Services",
+        "projectPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Services\\MCB.Memphis.Services.csproj",
+        "packagesPath": "C:\\Users\\trieu\\.nuget\\packages\\",
+        "outputPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\trieu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://172.22.58.11:82/nuget/mcb_nuget/": {},
+          "http://nuget.episerver.com/feed/packages.svc/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "E:\\Workspace\\Memphis\\MCB.Memphis.Core\\MCB.Memphis.Core.csproj": {
+                "projectPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Core\\MCB.Memphis.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[1.60.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100-preview8-013656\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\Workspace\\Memphis\\MCB.Memphis.Web\\MCB.Memphis.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\Workspace\\Memphis\\MCB.Memphis.Web\\MCB.Memphis.Web.csproj",
+        "projectName": "MCB.Memphis.Web",
+        "projectPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Web\\MCB.Memphis.Web.csproj",
+        "packagesPath": "C:\\Users\\trieu\\.nuget\\packages\\",
+        "outputPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\trieu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://172.22.58.11:82/nuget/mcb_nuget/": {},
+          "http://nuget.episerver.com/feed/packages.svc/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "E:\\Workspace\\Memphis\\MCB.Memphis.Core\\MCB.Memphis.Core.csproj": {
+                "projectPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Core\\MCB.Memphis.Core.csproj"
+              },
+              "E:\\Workspace\\Memphis\\MCB.Memphis.Services\\MCB.Memphis.Services.csproj": {
+                "projectPath": "E:\\Workspace\\Memphis\\MCB.Memphis.Services\\MCB.Memphis.Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0-preview8.19405.7, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0-preview8.19405.7, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[3.0.0-preview8.19405.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0-preview8.19405.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[3.0.0-preview8.19405.11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100-preview8-013656\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

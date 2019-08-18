@@ -1,0 +1,67 @@
+﻿
+<div class="card-box card-box--form news-form news-form--files" data-js-unwrap>
+    <div class="card-box__title">
+        <h5>File upload</h5>
+    </div>
+
+    <div class="instruction">Files</div>
+
+    <div class="table-responsive table-files">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th class="col-name">Filename</th>
+                    <th class="col-size">Size</th>
+                    <th class="col-action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row-data">
+                    <td class="col-name">uploadfilehere.pdf</td>
+                    <td class="col-size">10 kb</td>
+                    <td class="col-action">
+                        <div class="row-actions">
+                            <button class="btn btn-edit" aria-label="Close"><i class="fe-edit-2"></i></button>
+                            <button class="btn btn-delete" aria-label="Delete"><i class="fe-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="row-data">
+                    <td class="col-name">uploadfilehere-01.pdf</td>
+                    <td class="col-size">8 kb</td>
+                    <td class="col-action">
+                        <div class="row-actions">
+                            <button class="btn btn-edit" aria-label="Close"><i class="fe-edit-2"></i></button>
+                            <button class="btn btn-delete" aria-label="Delete"><i class="fe-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="row-data">
+                    <td class="col-name">uploadfilehere-02.pdf</td>
+                    <td class="col-size">6 kb</td>
+                    <td class="col-action">
+                        <div class="row-actions">
+                            <button class="btn btn-edit" aria-label="Close"><i class="fe-edit-2"></i></button>
+                            <button class="btn btn-delete" aria-label="Delete"><i class="fe-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Don't use class dropzone right in html cause it will be initialized with default options -->
+    <!-- dz-max-filesize value is KB -->
+    <form action="/file-upload" method="post" data-plugin="dropzone" enctype="multipart/form-data" id="myAwesomeDropzone01"
+          dz-max-filesize="2" dz-max-files="2" dz-accepted-files="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/pdf, image/*, .docx, .xlsx, .pptx">
+
+        <div class="fallback">
+            <!-- default: news has single image -->
+            <input name="file" type="file" multiple />
+        </div>
+
+        <div class="dz-message needsclick">
+            <i class="fe-upload-cloud"></i><h5>Drop files here or click to upload.</h5>
+        </div>
+    </form>
+</div>

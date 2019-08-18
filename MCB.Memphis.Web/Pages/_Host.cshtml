@@ -1,0 +1,62 @@
+﻿@page "/"
+@namespace MCB.Memphis.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>MCB CMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="icon" sizes="32x32" href="~/themes/default/favicons/favicon-32x32.png">
+    <link rel="icon" sizes="196x196" href="~/themes/default/favicons/favicon-196x196.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/themes/default/favicons/apple-touch-icon-180x180.png">
+
+    <!-- Plugins css -->
+    <link href="~/libs/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- TODO: If use svg for icons => remove icon.scss & icon.css -->
+    <link href="~/themes/default/icons.css" rel="stylesheet" type="text/css" />
+    <link href="~/themes/default/layout.css" rel="stylesheet" type="text/css" />
+
+    <!-- memphis/domf font -->
+    <link rel="stylesheet" href="https://use.typekit.net/bbf5nxa.css">
+</head>
+<body class="enlarged">
+    <app>
+        @* Remove the following line of code to disable prerendering *@
+        @(await Html.RenderStaticComponentAsync<App>())
+    </app>
+
+    <script src="_framework/blazor.server.js"></script>
+
+    <!-- #region: Vendor js (don't change the order) -->
+    <!-- concatenate to vendor.js in backend -->
+    <!-- 1/ Required for the whole app -->
+    <script src="~/js/vendor/jquery.js"></script>
+    <script src="~/js/vendor/bootstrap.bundle.js"></script>
+
+    <!-- 2/ Used for menu -->
+    <script src="~/js/vendor/jquery.slimscroll.js"></script>
+    <script src="~/js/vendor/metismenu.js"></script>
+
+    <!-- waves js is removed in folder vendor cause not used -->
+    <!-- <script src="js/vendor/waves.js"></script> -->
+    <!-- 3/ Used for dashboard statistics (then) -->
+    <script src="~/js/vendor/jquery.waypoints.min.js"></script>
+    <script src="~/js/vendor/jquery.counterup.min.js"></script>
+
+    <!-- #endregion -->
+    <!-- #region: App js -->
+    <!-- app plugins -->
+    <script src="~/libs/bootstrap-select/bootstrap-select.min.js"></script>
+
+    <script src="~/js/app.js"></script>
+</body>
+</html>

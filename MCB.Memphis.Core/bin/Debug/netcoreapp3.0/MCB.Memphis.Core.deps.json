@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "MCB.Memphis.Core/1.0.0": {
+        "runtime": {
+          "MCB.Memphis.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MCB.Memphis.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

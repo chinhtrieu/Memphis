@@ -1,0 +1,149 @@
+﻿
+<div class="card-box card-box--form news-form news-form--general-info" data-js-unwrap>
+    <div class="card-box__title">
+        <h5>News information</h5>
+    </div>
+
+    <form class="needs-validation" id="form-general">
+
+        <div class="form-row form-row--group-date">
+            <div class="form-group form-group--startdate col">
+                <div class="form-group__label">
+                    <label for="field-start-date">Start date</label>
+                </div>
+
+                <div class="form-group__controls">
+                    <!-- placeholder is today -->
+                    <input class="form-control" data-plugin="flatpickr" id="field-start-date" name="startdate" placeholder="Start date" type="date">
+                    <div class="invalid-feedback">
+                        Start date must be ealier than End date.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-group--enddate col">
+                <div class="form-group__label">
+                    <label for="field-end-date">End date</label>
+                </div>
+
+                <div class="form-group__controls">
+                    <!-- placeholder is today -->
+                    <input class="form-control" data-plugin="flatpickr" id="field-end-date" name="enddate" placeholder="End date" type="date">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-group--headline">
+            <div class="form-group__label">
+                <label for="field-headline">Headline</label>
+            </div>
+            <div class="form-group__controls">
+                <input type="text" id="field-headline" name="headline" class="form-control" placeholder="Enter headline" max-length="255">
+            </div>
+        </div>
+
+        <div class="form-group form-group--optional-link">
+            <div class="form-group__label">
+                <label for="field-link">Optional link</label>
+            </div>
+            <div class="form-group__controls">
+                <input type="url" id="field-optional-link" name="optionallink" class="form-control" placeholder="Enter optional link" maxlength="250">
+            </div>
+        </div>
+
+        <div class="form-group form-group--manchet">
+            <div class="form-group__label">
+                <label for="field-Manchet">Manchet</label>
+            </div>
+            <div class="form-group__controls">
+                <textarea class="form-control" id="field-manchet" name="manchet" rows="3" placeholder="Enter manchet" maxlength="1000"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group form-group--text">
+            <div class="form-group__label">
+                <label for="field-description">Text</label>
+            </div>
+            <div class="form-group__controls">
+                <textarea class="form-control" data-plugin="summernote" rows="3" id="field-description" name="text" placeholder="Enter Text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu interdum augue, non lobortis purus. Nulla posuere blandit egestas. Etiam dignissim odio</textarea>
+            </div>
+        </div>
+
+        <div class="form-group form-group--groups">
+            <div class="form-group__label">
+                <label for="field-category">Groups</label>
+            </div>
+            <div class="form-group__controls">
+                <select class="form-control selectpicker" id="field-category" name="groups" data-live-search="true" data-size="20" data-style="btn-default">
+                    <option>Select group</option>
+                    <option value="SH1">Danish</option>
+                    <option value="SH4">Danish frontpage</option>
+                    <option value="SH2">English</option>
+                    <option value="SH3">Finnish</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group form-group--topnews">
+            <div class="form-group__label">
+                <label>Top news</label>
+            </div>
+            <div class="form-group__controls">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="topnewsRadio" name="topnews">
+                    <label class="custom-control-label" for="topnewsRadio">Enabled</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-group--freetext">
+            <div class="form-group__label">
+                <label for="field-free-text">Free text</label>
+            </div>
+            <div class="form-group__controls">
+                <textarea class="form-control" data-plugin="summernote" rows="3" id="field-free-text" name="freetext" placeholder="Enter free text"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="card-box card-box--form news-form news-form--general-seo" data-js-unwrap>
+    <div class="card-box__title">
+        <h5>SEO</h5>
+    </div>
+
+    <form class="needs-validation" id="form-meta-data">
+        <div class="form-group form-group--searchwords">
+            <div class="form-group__label">
+                <label for="field-meta-title">Search words</label>
+            </div>
+            <div class="form-group__controls">
+                <input type="text" class="form-control" id="field-search-words" name="searchwords" placeholder="Comma-separated list of keywords on the page where the product should be found">
+            </div>
+        </div>
+        <div class="form-group form-group--titletag">
+            <div class="form-group__label">
+                <label for="field-meta-title">Title tag</label>
+            </div>
+            <div class="form-group__controls">
+                <input type="text" class="form-control" id="field-meta-title" name="titletag" placeholder="Can be used to set a different title tag than the name of the item">
+            </div>
+        </div>
+        <div class="form-group form-group--metadescription">
+            <div class="form-group__label">
+                <label for="field-meta-description">Meta Description</label>
+            </div>
+            <div class="form-group__controls">
+                <textarea class="form-control" id="field-meta-description" name="metadescription" rows="3" placeholder="Short description intended for search engines. High probability of appearing in search results. We recommend a maximum of 250 characters" maxlength="250">Lorem ipsum dolor sit amet, consectetur adipiscing elit</textarea>
+            </div>
+        </div>
+        <div class="form-group form-group--metakeywords">
+            <div class="form-group__label">
+                <label for="field-meta-keywords">Meta Keywords</label>
+            </div>
+            <div class="form-group__controls">
+                <textarea class="form-control" id="field-meta-keywords" name="metakeywords" rows="3" placeholder="Comma-separated list of the most relevant keywords on the page. We recommend a maximum of 10 words. Can be used to list words misspelled, e.g. `Triumph, Triumph`" maxlength="200"></textarea>
+            </div>
+        </div>
+    </form>
+</div>

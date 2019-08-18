@@ -1,0 +1,100 @@
+﻿
+<div class="card-box card-box--form news-form news-form--images" data-js-unwrap>
+    <div class="card-box__title">
+        <h5>News images</h5>
+    </div>
+
+    <div class="instruction">Pictures</div>
+
+    <div class="table-responsive table-files table-files--images">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th class="col-select"></th>
+                    <th class="col-image">Image</th>
+                    <th class="col-name">Name</th>
+                    <th class="col-action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row-data">
+                    <td class="col-select">
+
+                        <!-- checked item is favourite/active image -->
+                        <div class="radio radio-dark radio-single">
+                            <input type="radio" id="radio01" value="radio01" name="radiofavourite"><label for="radio01"></label>
+                        </div>
+                    </td>
+                    <td class="col-image">
+                        <picture>
+                            <source srcset="assets/images/small/img-1.jpg">
+                            <img src="assets/images/small/img-1.jpg" alt="lorem">
+                        </picture>
+                    </td>
+                    <td class="col-name">Facilisis egestas cillum dolore</td>
+                    <td class="col-action">
+                        <div class="row-actions">
+                            <button class="btn btn-edit" aria-label="Close"><i class="fe-edit-2"></i></button>
+                            <button class="btn btn-delete" aria-label="Delete"><i class="fe-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="row-data">
+                    <td class="col-select">
+                        <div class="radio radio-dark radio-single">
+                            <input type="radio" id="radio02" value="radio02" name="radiofavourite" checked=""><label for="radio02"></label>
+                        </div>
+                    </td>
+                    <td class="col-image">
+                        <picture>
+                            <source srcset="assets/images/small/img-2.jpg">
+                            <img src="assets/images/small/img-2.jpg" alt="lorem">
+                        </picture>
+                    </td>
+                    <td class="col-name">Fabio vel iudice vincam</td>
+                    <td class="col-action">
+                        <div class="row-actions">
+                            <button class="btn btn-edit" aria-label="Close"><i class="fe-edit-2"></i></button>
+                            <button class="btn btn-delete" aria-label="Delete"><i class="fe-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="row-data">
+                    <td class="col-select">
+                        <div class="radio radio-dark radio-single">
+                            <input type="radio" id="radio03" value="radio03" name="radiofavourite"><label for="radio03"></label>
+                        </div>
+                    </td>
+                    <td class="col-image">
+                        <picture>
+                            <source srcset="assets/images/small/img-3.jpg">
+                            <img src="assets/images/small/img-3.jpg" alt="lorem">
+                        </picture>
+                    </td>
+                    <td class="col-name">Tityre patulae recubans sub tegmine</td>
+                    <td class="col-action">
+                        <div class="row-actions">
+                            <button class="btn btn-edit" aria-label="Close"><i class="fe-edit-2"></i></button>
+                            <button class="btn btn-delete" aria-label="Delete"><i class="fe-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Don't use class dropzone right in html cause it will be initialized with default options -->
+    <!-- dz-max-filesize value is KB -->
+    <form action="/file-upload" method="post" data-plugin="dropzone" enctype="multipart/form-data" id="myAwesomeDropzone"
+          dz-max-filesize="2" dz-max-files="2" dz-accepted-files="image/*">
+
+        <div class="fallback">
+            <!-- default: news has single image -->
+            <input name="file" type="file" multiple />
+        </div>
+
+        <div class="dz-message needsclick">
+            <i class="fe-upload-cloud"></i><h5>Drop files here or click to upload.</h5>
+        </div>
+    </form>
+</div>

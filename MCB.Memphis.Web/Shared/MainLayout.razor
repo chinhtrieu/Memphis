@@ -1,0 +1,29 @@
+﻿@using MCB.Memphis.Web.Components.Shared
+@inherits LayoutComponentBase
+<!-- Begin page -->
+<div id="wrapper">
+
+    <TopBar></TopBar>
+    <LeftSideBar></LeftSideBar>
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+
+        @Body
+
+        <SiteFooter></SiteFooter>
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<RightSideBar></RightSideBar>
