@@ -1,4 +1,4 @@
-﻿
+﻿@inherits NewsInfoComopnent
 <div class="card-box card-box--form news-form news-form--general-info" data-js-unwrap>
     <div class="card-box__title">
         <h5>News information</h5>
@@ -14,7 +14,7 @@
 
                 <div class="form-group__controls">
                     <!-- placeholder is today -->
-                    <input class="form-control" data-plugin="flatpickr" id="field-start-date" name="startdate" placeholder="Start date" type="date">
+                    <input class="form-control" data-plugin="flatpickr" id="field-start-date" name="startdate" placeholder="Start date" type="date" @bind="NewsModel.NewsStartDate"/>
                     <div class="invalid-feedback">
                         Start date must be ealier than End date.
                     </div>
@@ -28,7 +28,7 @@
 
                 <div class="form-group__controls">
                     <!-- placeholder is today -->
-                    <input class="form-control" data-plugin="flatpickr" id="field-end-date" name="enddate" placeholder="End date" type="date">
+                    <input class="form-control" data-plugin="flatpickr" id="field-end-date" name="enddate" placeholder="End date" type="date" @bind="NewsModel.NewsEndDate"/>
                 </div>
             </div>
         </div>
@@ -38,16 +38,7 @@
                 <label for="field-headline">Headline</label>
             </div>
             <div class="form-group__controls">
-                <input type="text" id="field-headline" name="headline" class="form-control" placeholder="Enter headline" max-length="255">
-            </div>
-        </div>
-
-        <div class="form-group form-group--optional-link">
-            <div class="form-group__label">
-                <label for="field-link">Optional link</label>
-            </div>
-            <div class="form-group__controls">
-                <input type="url" id="field-optional-link" name="optionallink" class="form-control" placeholder="Enter optional link" maxlength="250">
+                <input type="text" id="field-headline" name="headline" class="form-control" placeholder="Enter headline" max-length="255" @bind="NewsModel.NewsHeadline"/>
             </div>
         </div>
 
@@ -56,7 +47,7 @@
                 <label for="field-Manchet">Manchet</label>
             </div>
             <div class="form-group__controls">
-                <textarea class="form-control" id="field-manchet" name="manchet" rows="3" placeholder="Enter manchet" maxlength="1000"></textarea>
+                <textarea class="form-control" id="field-manchet" name="manchet" rows="3" placeholder="Enter manchet" maxlength="1000" @bind="NewsModel.NewsManchet"></textarea>
             </div>
         </div>
 
@@ -65,7 +56,7 @@
                 <label for="field-description">Text</label>
             </div>
             <div class="form-group__controls">
-                <textarea class="form-control" data-plugin="summernote" rows="3" id="field-description" name="text" placeholder="Enter Text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu interdum augue, non lobortis purus. Nulla posuere blandit egestas. Etiam dignissim odio</textarea>
+                <textarea class="form-control" data-plugin="summernote" rows="3" id="field-description" name="text" placeholder="Enter Text" @bind="NewsModel.NewsText"></textarea>
             </div>
         </div>
 
@@ -76,10 +67,10 @@
             <div class="form-group__controls">
                 <select class="form-control selectpicker" id="field-category" name="groups" data-live-search="true" data-size="20" data-style="btn-default">
                     <option>Select group</option>
-                    <option value="SH1">Danish</option>
-                    <option value="SH4">Danish frontpage</option>
-                    <option value="SH2">English</option>
-                    <option value="SH3">Finnish</option>
+                    <option value="1">Danish</option>
+                    <option value="2">Danish frontpage</option>
+                    <option value="3">English</option>
+                    <option value="4">Finnish</option>
                 </select>
             </div>
         </div>
@@ -90,7 +81,7 @@
             </div>
             <div class="form-group__controls">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="topnewsRadio" name="topnews">
+                    <input type="checkbox" class="custom-control-input" id="topnewsRadio" name="topnews" @bind="NewsModel.NewsHead"/>
                     <label class="custom-control-label" for="topnewsRadio">Enabled</label>
                 </div>
             </div>
@@ -101,7 +92,7 @@
                 <label for="field-free-text">Free text</label>
             </div>
             <div class="form-group__controls">
-                <textarea class="form-control" data-plugin="summernote" rows="3" id="field-free-text" name="freetext" placeholder="Enter free text"></textarea>
+                <textarea class="form-control" data-plugin="summernote" rows="3" id="field-free-text" name="freetext" placeholder="Enter free text" @bind="NewsModel.NewsFreeTxt"></textarea>
             </div>
         </div>
     </form>
@@ -118,7 +109,7 @@
                 <label for="field-meta-title">Search words</label>
             </div>
             <div class="form-group__controls">
-                <input type="text" class="form-control" id="field-search-words" name="searchwords" placeholder="Comma-separated list of keywords on the page where the product should be found">
+                <input type="text" class="form-control" id="field-search-words" name="searchwords" placeholder="Comma-separated list of keywords on the page where the product should be found" @bind="NewsModel.NewsKeywords" />
             </div>
         </div>
         <div class="form-group form-group--titletag">
@@ -126,7 +117,7 @@
                 <label for="field-meta-title">Title tag</label>
             </div>
             <div class="form-group__controls">
-                <input type="text" class="form-control" id="field-meta-title" name="titletag" placeholder="Can be used to set a different title tag than the name of the item">
+                <input type="text" class="form-control" id="field-meta-title" name="titletag" placeholder="Can be used to set a different title tag than the name of the item" @bind="NewsModel.PageTitle"/>
             </div>
         </div>
         <div class="form-group form-group--metadescription">
@@ -134,7 +125,7 @@
                 <label for="field-meta-description">Meta Description</label>
             </div>
             <div class="form-group__controls">
-                <textarea class="form-control" id="field-meta-description" name="metadescription" rows="3" placeholder="Short description intended for search engines. High probability of appearing in search results. We recommend a maximum of 250 characters" maxlength="250">Lorem ipsum dolor sit amet, consectetur adipiscing elit</textarea>
+                <textarea class="form-control" id="field-meta-description" name="metadescription" rows="3" placeholder="Short description intended for search engines. High probability of appearing in search results. We recommend a maximum of 250 characters" maxlength="250" @bind="NewsModel.MetaDescription"></textarea>
             </div>
         </div>
         <div class="form-group form-group--metakeywords">

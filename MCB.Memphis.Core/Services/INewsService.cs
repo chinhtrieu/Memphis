@@ -8,9 +8,9 @@ namespace MCB.Memphis.Core.Services
 {
     public interface INewsService
     {
-        NewsModel GetNews(int newsGuid);
-        List<NewsModel> GetAllNews(int siteGuid);
-        bool Udpate(NewsModel newsModel);
-        bool Delete(int newsGuid);       
+        Task<NewsModel> GetNews(int newsGuid);
+        Task<List<NewsModel>> GetAllNews(int siteGuid);
+        Task<bool> Udpate(NewsModel newsModel);
+        Task<bool> Delete(int newsGuid);       
     }
 }

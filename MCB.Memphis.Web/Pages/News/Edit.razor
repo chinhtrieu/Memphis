@@ -1,4 +1,5 @@
 ﻿@page "/news/{newsGuid:int}"
+@inherits NewsEditComponent
 @using MCB.Memphis.Web.Components
 @using MCB.Memphis.Web.Components.News
 
@@ -49,13 +50,8 @@
         <div data-js-toggle="tab-news-general">
             <div class="row">
                 <div class="col-lg-6">
-                    @*<NewsInfo></NewsInfo>*@
-                </div>
-
-                <div class="col-lg-6">
-                    @*<NewsImages></NewsImages>
-                    <NewsFiles></NewsFiles>*@
-                </div>
+                    <NewsInfo NewsModel="@newsModel"></NewsInfo>
+                </div>                
             </div>
         </div>
 
@@ -92,8 +88,3 @@
     </div>
 
 </div>
-
-@code {
-    [Parameter]
-    public int NewsGuid { get; set; }
-}

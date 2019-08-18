@@ -41,7 +41,7 @@ namespace MCB.Memphis.Web
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<INewsService, NewsService>();
+            services.AddSingleton<INewsService, MCB.Memphis.MokeServices.News.NewsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

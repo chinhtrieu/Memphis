@@ -13,15 +13,10 @@ namespace MCB.Memphis.Web.Pages.News
         [Inject]
         public INewsService _newsService { get; set; }
 
-        protected List<NewsModel> newsList;
-        public NewsIndexComponent()
-        {
-
-        }
-
+        protected List<NewsModel> newsList;        
         protected override async Task OnInitializedAsync()
         {
-            newsList = _newsService.GetAllNews(10535);
+            newsList = await _newsService.GetAllNews(10535);
         }
     }
 }

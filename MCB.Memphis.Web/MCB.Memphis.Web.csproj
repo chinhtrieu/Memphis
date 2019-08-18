@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MCB.Memphis.Core\MCB.Memphis.Core.csproj" />
+    <ProjectReference Include="..\MCB.Memphis.MokeServices\MCB.Memphis.MokeServices.csproj" />
     <ProjectReference Include="..\MCB.Memphis.Services\MCB.Memphis.Services.csproj" />
   </ItemGroup>
 
