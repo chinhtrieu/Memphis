@@ -26,7 +26,7 @@ namespace MCB.Memphis.Services.News
                 return new SqlConnection(_config.GetConnectionString("MyConnectionString"));
             }
         }
-        public async Task<NewsModel> GetNews(int newsGuid)
+        public NewsModel GetNews(int newsGuid)
         {
             using (IDbConnection conn = Connection)
             {
@@ -47,11 +47,11 @@ namespace MCB.Memphis.Services.News
                                   FROM[dbo].[TBLsite_news] 
                                   WHERE NewsGuid = @NewsGuid";
                 conn.Open();
-                var result = await conn.QueryAsync<NewsModel>(sQuery, new { NewsGuid = newsGuid });
+                var result = conn.Query<NewsModel>(sQuery, new { NewsGuid = newsGuid });
                 return result.FirstOrDefault();
             }
         }
-        public async Task<List<NewsModel>> GetAllNews(int siteGuid)
+        public List<NewsModel> GetAllNews(int siteGuid)
         {
             using (IDbConnection conn = Connection)
             {
@@ -72,12 +72,12 @@ namespace MCB.Memphis.Services.News
                                   FROM [dbo].[TBLsite_news] 
                                   WHERE SiteGuid = @SiteGuid";
                 conn.Open();
-                var result = await conn.QueryAsync<NewsModel>(sQuery, new { SiteGuid = siteGuid });
+                var result = conn.Query<NewsModel>(sQuery, new { SiteGuid = siteGuid });
                 return result.ToList();
             }
         }
 
-        public async Task<bool> Udpate(NewsModel newsModel)
+        public bool Udpate(NewsModel newsModel)
         {
             using (IDbConnection conn = Connection)
             {
@@ -98,7 +98,7 @@ namespace MCB.Memphis.Services.News
                                       ,[logicalName] = @LogicalName
                                     WHERE NewsGuid = @NewsGuid";
                 conn.Open();
-                var result = await conn.ExecuteAsync(sQuery, new {
+                var result = conn.Execute(sQuery, new {
                     newsModel.NewsGuid,
                     newsModel.NewsStartDate,
                     newsModel.NewsEndDate,
@@ -116,13 +116,13 @@ namespace MCB.Memphis.Services.News
                 return result > 0;
             }
         }
-        public async Task<bool> Delete(int newsGuid)
+        public bool Delete(int newsGuid)
         {
             using (IDbConnection conn = Connection)
             {
                 string sQuery = @"Delete FROM TBLsite_news WHERE NewsGuid = @NewsGuid";
                 conn.Open();
-                var result = await conn.ExecuteAsync(sQuery, new { NewsGuid = newsGuid });
+                var result = conn.Execute(sQuery, new { NewsGuid = newsGuid });
                 return result > 0;
             }
         }

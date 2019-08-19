@@ -11,5 +11,7 @@ namespace MCB.Memphis.Web.Components.News
     {
         [Parameter]
         public NewsModel NewsModel { get; set; }
+
+
     }
 }

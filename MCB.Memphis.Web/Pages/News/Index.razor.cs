@@ -16,7 +16,7 @@ namespace MCB.Memphis.Web.Pages.News
         protected List<NewsModel> newsList;        
         protected override async Task OnInitializedAsync()
         {
-            newsList = await _newsService.GetAllNews(10535);
+            newsList = _newsService.GetAllNews(10535);
         }
     }
 }
