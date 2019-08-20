@@ -394,5 +394,35 @@ namespace MCB.Memphis.MokeServices.News
         {
             throw new NotImplementedException();
         }
+
+        public Task<NewsModel> GetNewsAsync(int newsGuid)
+        {
+            return Task.Run(() =>
+            {
+                return GetNews(newsGuid);
+            });
+        }
+
+        public Task<List<NewsModel>> GetAllNewsAsync(int siteGuid)
+        {
+            return Task.Run(() => { 
+                return GetAllNews(siteGuid);
+            });
+        }
+
+        public bool Update(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateAsync(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAsync(int newsGuid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

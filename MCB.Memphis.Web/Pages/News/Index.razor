@@ -2,99 +2,85 @@
 @inherits NewsIndexComponent
 @using MCB.Memphis.Web.Components
 @using MCB.Memphis.Web.Components.News
-
-<div class="content-top stickable">
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-
-                <!-- if editing a news then page title is news heading -->
-                <div class="page-title-box hide-on-sticky">
-                    <h1 class="page-title">Add news</h1>
-                </div>
-
-                <!-- block: page actions -->
-                <div class="page-actions page-actions--top">
-                    <div class="row">
-                        <div class="col col-relation">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-dark btn-fn-general" data-js-toggle-aria="tab-news-general">General</button>
-
-                                <!-- this badge is indicator for changed & unsaved tab. render if corresponding tab has changed -->
-                                <!-- click Save button in bottom => save all tabs -->
-                                <button type="button" class="btn btn-default btn-fn-relation" data-js-toggle-aria="tab-news-relations">Relations<span class="badge badge-warning badge-dot"></span></button>
-                            </div>
-                        </div>
-                        <div class="col col-crud">
-                            <!-- redirect to create-new page -->
-                            <!-- alert save current news? -->
-                            <button type="button" class="btn btn-primary btn-icon btn-fn-addnew"><i class="fe-plus-circle"></i><span>New</span></button>
-                            <button type="button" class="btn btn-default btn-icon btn-fn-delete"><i class="fe-trash"></i><span>Delete</span></button>
-                        </div>
-                    </div>
-                </div>
-                <!-- block end: page actions -->
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="content-main">
-
-    <!-- Start Content-->
-    <div class="container-fluid">
-
-        <!-- This wrapper should not be rendered. Handled by blazor -->
-        <div data-js-toggle="tab-news-general">
-            <div class="row">
-                <div class="col-lg-6">
-                    <ul>
-                        @foreach (var item in newsList)
-                        {
-
-                            <li><a href="/news/@item.NewsGuid">@item.NewsHeadline</a></li>
-                        }
-                    </ul>
-                </div>
-
-                <div class="col-lg-6">
-                    
-                </div>
-            </div>
-        </div>
+@if (newsList == null)
+{
+    <h1>Loading...</h1>
+}
+else
+{
 
 
-        <!-- This wrapper should not be rendered. Handled by blazor -->
-        <div data-js-toggle="tab-news-relations" style="display: none">
+    <div class="content-top stickable">
+
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <!-- temporary -->
-                    <div class="card-box card-box--relations" style="min-height: 300px">
-                        <div class="card-box__title">
-                            <h5>News Relations</h5>
+                    <!-- if editing a news then page title is news heading -->
+                    <div class="page-title-box hide-on-sticky">
+                        <h1 class="page-title">News list</h1>
+                    </div>
+
+                    <!-- block: page actions -->
+                    <div class="page-actions page-actions--top">
+                        <div class="row">                            
+                            <div class="col col-crud">
+                                <!-- redirect to create-new page -->
+                                <!-- alert save current news? -->
+                                <button type="button" class="btn btn-primary btn-icon btn-fn-addnew"><i class="fe-plus-circle"></i><span>New</span></button>
+                            </div>
                         </div>
+                    </div>
+                    <!-- block end: page actions -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content-main">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- This wrapper should not be rendered. Handled by blazor -->
+            <div data-js-toggle="tab-news-general">
+                <div class="row">
+                    <div class="col-lg-6">                        
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="col-name">Start Date</th>
+                                    <th class="col-size">Title</th>
+                                    <th class="col-action">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in newsList)
+                                {
+
+                                    <tr class="row-data">
+                                        <td class="col-name">@item.NewsStartDate</td>
+                                        <td class="col-name"><a href="/news/@item.NewsGuid">@item.NewsHeadline</a></td>
+                                        <td class="col-action">
+                                            <div class="row-actions">
+                                                <button class="btn btn-edit" aria-label="Close"><i class="fe-edit-2"></i></button>
+                                                <button class="btn btn-delete" aria-label="Delete"><i class="fe-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-lg-6">
+
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- container -->
 
-    </div> <!-- container -->
-
-</div> <!-- content -->
-
-<div class="content-bottom stickable" data-js-toggle="tab-news-general">
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="page-actions page-actions--bottom">
-                    <button type="button" class="btn btn-default btn-fn-cancel">Cancel</button>
-                    <button type="button" class="btn btn-primary btn-fn-submit" disabled="" data-mcb-js-submit="#form-general, #form-meta-data">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
+    </div> <!-- content -->   
+}

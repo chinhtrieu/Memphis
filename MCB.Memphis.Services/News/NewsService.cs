@@ -77,7 +77,7 @@ namespace MCB.Memphis.Services.News
             }
         }
 
-        public bool Udpate(NewsModel newsModel)
+        public bool Update(NewsModel newsModel)
         {
             using (IDbConnection conn = Connection)
             {
@@ -125,6 +125,37 @@ namespace MCB.Memphis.Services.News
                 var result = conn.Execute(sQuery, new { NewsGuid = newsGuid });
                 return result > 0;
             }
+        }
+
+        public Task<NewsModel> GetNewsAsync(int newsGuid)
+        {
+            return Task.Run(() => {
+                return GetNews(newsGuid);
+            });
+        }
+
+        public Task<List<NewsModel>> GetAllNewsAsync(int siteGuid)
+        {
+            return Task.Run(() =>
+            {
+                return GetAllNews(siteGuid);
+            });
+        }
+
+        public Task<bool> UpdateAsync(NewsModel newsModel)
+        {
+            return Task.Run(() =>
+            {
+                return Update(newsModel);
+            });
+        }
+
+        public Task<bool> DeleteAsync(int newsGuid)
+        {
+            return Task.Run(() =>
+            {
+                return Delete(newsGuid);
+            });
         }
     }
 }

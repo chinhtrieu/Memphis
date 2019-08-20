@@ -25,7 +25,7 @@ namespace MCB.Memphis.Web.Pages.News
         protected override async Task OnInitializedAsync()
         {
             if (NewsGuid <= 0) _uriHelper.NavigateTo("/news");
-            newsModel = _newsService.GetNews(NewsGuid);
+            newsModel = await _newsService.GetNewsAsync(NewsGuid);
             if(newsModel == null) _uriHelper.NavigateTo("/404");
         }
     }

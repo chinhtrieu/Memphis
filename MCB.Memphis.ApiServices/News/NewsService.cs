@@ -14,7 +14,17 @@ namespace MCB.Memphis.ApiServices.News
             throw new NotImplementedException();
         }
 
+        public Task<bool> DeleteAsync(int newsGuid)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<List<NewsModel>> GetAllNews(int siteGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<NewsModel>> GetAllNewsAsync(int siteGuid)
         {
             throw new NotImplementedException();
         }
@@ -24,7 +34,37 @@ namespace MCB.Memphis.ApiServices.News
             throw new NotImplementedException();
         }
 
+        public Task<NewsModel> GetNewsAsync(int newsGuid)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> Udpate(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateAsync(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool INewsService.Delete(int newsGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<NewsModel> INewsService.GetAllNews(int siteGuid)
+        {
+            throw new NotImplementedException();
+        }
+
+        NewsModel INewsService.GetNews(int newsGuid)
         {
             throw new NotImplementedException();
         }
