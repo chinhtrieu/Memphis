@@ -12,6 +12,8 @@ namespace MCB.Memphis.Web.Pages.News
     {
         [Inject]
         public INewsService _newsService { get; set; }
+        [Inject]
+        public IUriHelper _uriHelper { get; set; }
 
         protected List<NewsModel> newsList;        
         protected override async Task OnInitializedAsync()
