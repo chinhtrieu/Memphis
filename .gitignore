@@ -1,0 +1,9 @@
+MCB.Memphis.Services/obj/Debug/netcoreapp3.0/MCB.Memphis.Services.csproj.FileListAbsolute.txt
+MCB.Memphis.Core/obj/Debug/netcoreapp3.0/MCB.Memphis.Core.csproj.FileListAbsolute.txt
+MCB.Memphis.Web/obj/Debug/netcoreapp3.0/MCB.Memphis.Web.csproj.FileListAbsolute.txt
+MCB.Memphis.ApiServices/bin/
+MCB.Memphis.Web/obj/Debug/netcoreapp3.0/RazorDeclaration/Components/Layout/ConfirmDialog.razor.g.cs
+.vs/
+MCB.Memphis.ApiServices/obj/
+MCB.Memphis.MockServices/obj/
+MCB.Memphis.Web/obj/
