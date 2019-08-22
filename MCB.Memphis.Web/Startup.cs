@@ -16,6 +16,9 @@ using MCB.Memphis.Web.Areas.Identity;
 using MCB.Memphis.Web.Data;
 using MCB.Memphis.Core.Services;
 using MCB.Memphis.Services.News;
+using SD.LLBLGen.Pro.ORMSupportClasses;
+using SD.LLBLGen.Pro.DQE.SqlServer;
+using System.Diagnostics;
 
 namespace MCB.Memphis.Web
 {
@@ -41,12 +44,19 @@ namespace MCB.Memphis.Web
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<INewsService, MCB.Memphis.MokeServices.News.NewsService>();
+            services.AddSingleton<INewsService, MCB.Memphis.Services.News.NewsService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            MCB.MasterPiece.Data.DaoClasses.CommonDaoBase.ActualConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            // Configure the DQE
+            RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(
+                                            c => c.SetTraceLevel(TraceLevel.Verbose)
+                                                    .AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory))
+                                                    .SetDefaultCompatibilityLevel(SqlServerCompatibilityLevel.SqlServer2012));
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

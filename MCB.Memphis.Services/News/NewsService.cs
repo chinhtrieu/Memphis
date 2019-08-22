@@ -1,7 +1,11 @@
 ﻿using Dapper;
+using MCB.MasterPiece.Data.CollectionClasses;
+using MCB.MasterPiece.Data.EntityClasses;
+using MCB.MasterPiece.Data.HelperClasses;
 using MCB.Memphis.Core.Model;
 using MCB.Memphis.Core.Services;
 using Microsoft.Extensions.Configuration;
+using SD.LLBLGen.Pro.ORMSupportClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,117 +18,54 @@ namespace MCB.Memphis.Services.News
 {
     public class NewsService : INewsService
     {
-        private readonly IConfiguration _config;
-        public NewsService(IConfiguration config)
+        public NewsService()
         {
-            _config = config;
-        }
-        public IDbConnection Connection
-        {
-            get
-            {
-                return new SqlConnection(_config.GetConnectionString("MyConnectionString"));
-            }
-        }
+        }        
         public NewsModel GetNews(int newsGuid)
-        {
-            using (IDbConnection conn = Connection)
-            {
-                string sQuery = @"SELECT [NewsGuid]
-                                      ,[NewsStartDate]
-                                      ,[NewsEndDate]
-                                      ,[NewsManchet]
-                                      ,[NewsText]
-                                      ,[SubGroupGuid]
-                                      ,[SiteGuid]
-                                      ,[NewsKeywords]
-                                      ,[NewsHead]
-                                      ,[NewsHeadline]
-                                      ,[PageTitle]
-                                      ,[MetaDescription]
-                                      ,[NewsFreeTxt]
-                                      ,[logicalName]
-                                  FROM[dbo].[TBLsite_news] 
-                                  WHERE NewsGuid = @NewsGuid";
-                conn.Open();
-                var result = conn.Query<NewsModel>(sQuery, new { NewsGuid = newsGuid });
-                return result.FirstOrDefault();
-            }
+        {            
+            var siteNewsEntity = GetSiteNewsEntity(newsGuid);
+            return siteNewsEntity != null ? ToNewsModel(siteNewsEntity) : null;
         }
+        private SiteNewsEntity GetSiteNewsEntity(int newsGuid)
+        {
+            SiteNewsCollection siteNewsCollection = new SiteNewsCollection();
+            IPredicateExpression filter = new PredicateExpression();
+            filter.Add(SiteNewsFields.NewsGuid == newsGuid);
+            siteNewsCollection.GetMulti(filter);
+
+            if (siteNewsCollection.Count == 0)
+                return null;
+            else
+                return siteNewsCollection[0];
+        }
+
         public List<NewsModel> GetAllNews(int siteGuid)
         {
-            using (IDbConnection conn = Connection)
+            SiteNewsCollection siteNewsCollection = new SiteNewsCollection();
+            IPredicateExpression filter = new PredicateExpression();
+            filter.Add(SiteNewsFields.SiteGuid == siteGuid);
+
+            if (siteNewsCollection.GetMulti(filter))
             {
-                string sQuery = @"SELECT [NewsGuid]
-                                      ,[NewsStartDate]
-                                      ,[NewsEndDate]
-                                      ,[NewsManchet]
-                                      ,[NewsText]
-                                      ,[SubGroupGuid]
-                                      ,[SiteGuid]
-                                      ,[NewsKeywords]
-                                      ,[NewsHead]
-                                      ,[NewsHeadline]
-                                      ,[PageTitle]
-                                      ,[MetaDescription]
-                                      ,[NewsFreeTxt]
-                                      ,[logicalName]
-                                  FROM [dbo].[TBLsite_news] 
-                                  WHERE SiteGuid = @SiteGuid";
-                conn.Open();
-                var result = conn.Query<NewsModel>(sQuery, new { SiteGuid = siteGuid });
-                return result.ToList();
+                return siteNewsCollection.Select(m => ToNewsModel(m)).ToList();
             }
+            return null;
+           
         }
 
         public bool Update(NewsModel newsModel)
         {
-            using (IDbConnection conn = Connection)
-            {
-                string sQuery = @"Update [dbo].[TBLsite_news]
-                                    SET [NewsGuid] = @NewsGuid
-                                      ,[NewsStartDate] = @NewsStartData
-                                      ,[NewsEndDate] = @NewsEndDate
-                                      ,[NewsManchet] = @NewsManchet
-                                      ,[NewsText] = @NewsText
-                                      ,[SubGroupGuid] = @SubGroupGuid
-                                      ,[SiteGuid] = @SiteGuid
-                                      ,[NewsKeywords] = @NewsKeywords
-                                      ,[NewsHead] = @NewsHead
-                                      ,[NewsHeadline] = @NewsHeadline
-                                      ,[PageTitle] = @PageTitle
-                                      ,[MetaDescription] = @MetaDescription
-                                      ,[NewsFreeTxt] = @NewsFreeTxt
-                                      ,[logicalName] = @LogicalName
-                                    WHERE NewsGuid = @NewsGuid";
-                conn.Open();
-                var result = conn.Execute(sQuery, new {
-                    newsModel.NewsGuid,
-                    newsModel.NewsStartDate,
-                    newsModel.NewsEndDate,
-                    newsModel.NewsManchet,
-                    newsModel.NewsText,
-                    newsModel.SubGroupGuid,
-                    newsModel.NewsKeywords,
-                    newsModel.NewsHead,
-                    newsModel.NewsHeadline,
-                    newsModel.PageTitle,
-                    newsModel.MetaDescription,
-                    newsModel.NewsFreeTxt,
-                    newsModel.LogicalName,
-                });
-                return result > 0;
-            }
+            var siteNewsEntity = FromNewsModel(newsModel);
+            siteNewsEntity.Save();
+            return true;
         }
+
+        
+
         public bool Delete(int newsGuid)
         {
-            using (IDbConnection conn = Connection)
-            {
-                string sQuery = @"Delete FROM TBLsite_news WHERE NewsGuid = @NewsGuid";
-                conn.Open();
-                var result = conn.Execute(sQuery, new { NewsGuid = newsGuid });
-                return result > 0;
-            }
+            var siteNewsEntity = GetSiteNewsEntity(newsGuid);
+            return siteNewsEntity.Delete();
         }
 
         public Task<NewsModel> GetNewsAsync(int newsGuid)
@@ -157,5 +98,47 @@ namespace MCB.Memphis.Services.News
                 return Delete(newsGuid);
             });
         }
+        private NewsModel ToNewsModel(SiteNewsEntity siteNewsEntity)
+        {
+            if (siteNewsEntity == null) return null;
+            return new NewsModel
+            {
+                NewsGuid = siteNewsEntity.NewsGuid,
+                SiteGuid = siteNewsEntity.SiteGuid.GetValueOrDefault(),
+                MetaDescription = siteNewsEntity.MetaDescription,
+                LogicalName = siteNewsEntity.LogicalName,
+                NewsEndDate = siteNewsEntity.NewsEndDate.GetValueOrDefault(),
+                NewsFreeTxt = siteNewsEntity.NewsFreeTxt,
+                NewsHead = siteNewsEntity.NewsHead.GetValueOrDefault() == 1,
+                NewsHeadline = siteNewsEntity.NewsHeadline,
+                NewsKeywords = siteNewsEntity.NewsKeywords,
+                NewsManchet = siteNewsEntity.NewsManchet,
+                NewsStartDate = siteNewsEntity.NewsStartDate.GetValueOrDefault(),
+                NewsText = siteNewsEntity.NewsText,
+                PageTitle = siteNewsEntity.PageTitle,
+                SubGroupGuid = siteNewsEntity.SubGroupGuid.GetValueOrDefault()
+            };
+        }
+        private SiteNewsEntity FromNewsModel(NewsModel newsModel)
+        {
+            return new SiteNewsEntity
+            {
+                NewsGuid = newsModel.NewsGuid,
+                SiteGuid = newsModel.SiteGuid,
+                MetaDescription = newsModel.MetaDescription,
+                LogicalName = newsModel.LogicalName,
+                NewsEndDate = newsModel.NewsEndDate,
+                NewsFreeTxt = newsModel.NewsFreeTxt,
+                NewsHead = newsModel.NewsHead ? 1 : 0,
+                NewsHeadline = newsModel.NewsHeadline,
+                NewsKeywords = newsModel.NewsKeywords,
+                NewsManchet = newsModel.NewsManchet,
+                NewsStartDate = newsModel.NewsStartDate,
+                NewsText = newsModel.NewsText,
+                PageTitle = newsModel.PageTitle,
+                SubGroupGuid = newsModel.SubGroupGuid
+            };
+        }
+
     }
 }
