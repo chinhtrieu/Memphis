@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿
+using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MCB.Memphis.Web.Components.Layout
 {
-    public class DialogComponent : ComponentBase
+    public class ConfirmDialogComponent : ComponentBase
     {
         [Parameter]
         public string HeadingText { get; set; }
@@ -18,8 +16,8 @@ namespace MCB.Memphis.Web.Components.Layout
         public string CancelText { get; set; }
 
         [Parameter]
-        public EventCallback<UIMouseEventArgs> OnConfirm { get; set; }
+        public Action OnConfirm { get; set; }
         [Parameter]
-        public EventCallback<UIMouseEventArgs> OnCancel { get; set; }
+        public Action OnCancel { get; set; }
     }
 }

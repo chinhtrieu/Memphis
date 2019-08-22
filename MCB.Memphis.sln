@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCB.Memphis.Core", "MCB.Mem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCB.Memphis.Services", "MCB.Memphis.Services\MCB.Memphis.Services.csproj", "{B61CF143-11E6-42F7-84F7-15B48DF52434}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCB.Memphis.MokeServices", "MCB.Memphis.MokeServices\MCB.Memphis.MokeServices.csproj", "{A0E37376-9320-4A99-993A-4D5D982F8188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCB.Memphis.MockServices", "MCB.Memphis.MokeServices\MCB.Memphis.MockServices.csproj", "{A0E37376-9320-4A99-993A-4D5D982F8188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCB.Memphis.ApiServices", "MCB.Memphis.ApiServices\MCB.Memphis.ApiServices.csproj", "{DB46D31A-BC1B-44D9-88AB-7E0F66D1DA8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCB.Memphis.ApiServices", "MCB.Memphis.ApiServices\MCB.Memphis.ApiServices.csproj", "{DB46D31A-BC1B-44D9-88AB-7E0F66D1DA8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

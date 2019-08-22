@@ -1,4 +1,4 @@
-﻿@inherits DialogComponent
+﻿@inherits ConfirmDialogComponent
 <div class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -9,13 +9,13 @@
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body">                
-                @CancelText
+            <div class="modal-body">
+                @BodyText
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal" @onclick="OnCancel">@CancelText</button>
-                <button type="button" class="btn btn-danger" @onclick="OnConfirm">@ConfirmText</button>
+                <button type="button" class="btn" data-dismiss="modal" @onclick="@(() => { OnCancel.Invoke(); })">@CancelText</button>
+                <button type="button" class="btn btn-danger" @onclick="@(() => { OnConfirm.Invoke();})">@ConfirmText</button>
             </div>
 
         </div>
