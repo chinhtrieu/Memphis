@@ -38,7 +38,6 @@ namespace MCB.Memphis.Services.News
             else
                 return siteNewsCollection[0];
         }
-
         public List<NewsModel> GetAllNews(int siteGuid)
         {
             SiteNewsCollection siteNewsCollection = new SiteNewsCollection();
@@ -59,9 +58,6 @@ namespace MCB.Memphis.Services.News
             siteNewsEntity.Save();
             return true;
         }
-
-        
-
         public bool Delete(int newsGuid)
         {
             var siteNewsEntity = GetSiteNewsEntity(newsGuid);
@@ -140,5 +136,35 @@ namespace MCB.Memphis.Services.News
             };
         }
 
+        public bool SaveNews(NewsModel newsModel)
+        {
+            if(newsModel.NewsGuid > 0)
+            {
+                return Update(newsModel);
+            }
+            return Insert(newsModel);
+        }
+
+        public Task<bool> SaveNewsAsync(NewsModel newsModel)
+        {
+            return Task.Run(() =>
+            {
+                return SaveNews(newsModel);
+            });
+        }
+
+        public bool Insert(NewsModel newsModel)
+        {
+            var newsEntity = FromNewsModel(newsModel);
+            newsEntity.Save();
+            return newsEntity.NewsGuid > 0;
+        }
+
+        public Task<bool> InsertAsync(NewsModel newsModel)
+        {
+            return Task.Run(() => { 
+                return Insert(newsModel);
+            });
+        }
     }
 }

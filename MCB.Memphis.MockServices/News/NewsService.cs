@@ -72,7 +72,12 @@ namespace MCB.Memphis.MockServices.News
 
         public bool Update(NewsModel newsModel)
         {
-            throw new NotImplementedException();
+            var index = _newsModels.FindIndex(m => m.NewsGuid == newsModel.NewsGuid);
+            if(index >= 0)
+            {
+                _newsModels[index] = newsModel;
+            }
+            return index >= 0;
         }
 
         public Task<bool> UpdateAsync(NewsModel newsModel)
@@ -83,6 +88,37 @@ namespace MCB.Memphis.MockServices.News
         public Task<bool> DeleteAsync(int newsGuid)
         {
             throw new NotImplementedException();
+        }
+
+        public bool SaveNews(NewsModel newsModel)
+        {
+            if(newsModel.NewsGuid > 0)
+            {
+                return Update(newsModel);
+            }
+            return Insert(newsModel);
+        }
+
+        public Task<bool> SaveNewsAsync(NewsModel newsModel)
+        {
+            return Task.Run(() =>
+            {
+                return SaveNews(newsModel);
+            });
+        }
+
+        public bool Insert(NewsModel newsModel)
+        {
+            newsModel.NewsGuid = _newsModels.Max(m => m.NewsGuid) + 1;
+            _newsModels.Add(newsModel);
+            return true;
+        }
+
+        public Task<bool> InsertAsync(NewsModel newsModel)
+        {
+            return Task.Run(() => { 
+                return Insert(newsModel);
+            });
         }
     }
 }

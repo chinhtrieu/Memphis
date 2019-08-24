@@ -16,5 +16,11 @@ namespace MCB.Memphis.Core.Services
         Task<bool> UpdateAsync(NewsModel newsModel);
         bool Delete(int newsGuid);
         Task<bool> DeleteAsync(int newsGuid);
+
+        bool SaveNews(NewsModel newsModel);
+        Task<bool> SaveNewsAsync(NewsModel newsModel);
+
+        bool Insert(NewsModel newsModel);
+        Task<bool> InsertAsync(NewsModel newsModel);
     }
 }

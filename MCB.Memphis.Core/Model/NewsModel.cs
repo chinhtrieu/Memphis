@@ -10,8 +10,8 @@ namespace MCB.Memphis.Core.Model
         public int SubGroupGuid { get; set; }
         public int SiteGuid { get; set; }
 
-        public DateTime NewsStartDate { get; set; }
-        public DateTime NewsEndDate {get;set;}
+        public DateTime NewsStartDate { get; set; } = DateTime.Now;
+        public DateTime NewsEndDate { get; set; } = DateTime.Now;
 
         public string NewsHeadline { get; set; }
         public string NewsManchet { get; set; }

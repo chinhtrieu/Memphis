@@ -68,5 +68,25 @@ namespace MCB.Memphis.ApiServices.News
         {
             throw new NotImplementedException();
         }
+
+        public bool SaveNews(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SaveNewsAsync(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Insert(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> InsertAsync(NewsModel newsModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

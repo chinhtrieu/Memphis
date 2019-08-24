@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\vendor\bootstrap.bundle.js" />
+    <None Include="wwwroot\js\vendor\jquery.counterup.min.js" />
+    <None Include="wwwroot\js\vendor\jquery.js" />
+    <None Include="wwwroot\js\vendor\jquery.slimscroll.js" />
+    <None Include="wwwroot\js\vendor\jquery.waypoints.min.js" />
+    <None Include="wwwroot\js\vendor\metisMenu.js" />
+    <None Include="wwwroot\js\vendor\pollyfill.js" />
+    <None Include="wwwroot\libs\bootstrap-select\bootstrap-select.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0-preview8.19405.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0-preview8.19405.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0-preview8.19405.7" />
@@ -16,7 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MCB.Memphis.Core\MCB.Memphis.Core.csproj" />
-    <ProjectReference Include="..\MCB.Memphis.MokeServices\MCB.Memphis.MockServices.csproj" />
+    <ProjectReference Include="..\MCB.Memphis.MockServices\MCB.Memphis.MockServices.csproj" />
     <ProjectReference Include="..\MCB.Memphis.Services\MCB.Memphis.Services.csproj" />
   </ItemGroup>
 

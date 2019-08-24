@@ -7,3 +7,9 @@ MCB.Memphis.Web/obj/Debug/netcoreapp3.0/RazorDeclaration/Components/Layout/Confi
 MCB.Memphis.ApiServices/obj/
 MCB.Memphis.MockServices/obj/
 MCB.Memphis.Web/obj/
+MCB.Memphis.Web/bin/
+MCB.Memphis.Services/bin/
+MCB.Memphis.Services/obj/
+MCB.Memphis.Core/bin/
+MCB.Memphis.Core/obj/
+MCB.Memphis.MockServices/bin/

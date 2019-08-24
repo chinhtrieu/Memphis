@@ -14,10 +14,11 @@ namespace MCB.Memphis.Web.Components.Layout
         public string ConfirmText { get; set; }
         [Parameter]
         public string CancelText { get; set; }
-
         [Parameter]
         public Action OnConfirm { get; set; }
         [Parameter]
         public Action OnCancel { get; set; }
+
+
     }
 }

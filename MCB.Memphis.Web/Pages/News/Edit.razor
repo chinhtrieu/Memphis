@@ -1,4 +1,5 @@
 ﻿@page "/news/{newsGuid:int}"
+@page "/news/create"
 @inherits NewsEditComponent
 @using MCB.Memphis.Web.Components
 @using MCB.Memphis.Web.Components.News
@@ -9,27 +10,13 @@
 else
 {
     <div class="content-top stickable">
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
 
-                    <!-- if editing a news then page title is news heading -->
                     <div class="page-title-box hide-on-sticky">
                         <h1 class="page-title">News editor</h1>
-                    </div>
-
-                    <!-- block: page actions -->
-                    <div class="page-actions page-actions--top">
-                        <div class="row">                            
-                            <div class="col col-crud">
-                                <!-- redirect to create-new page -->
-                                <!-- alert save current news? -->
-                                <button type="button" class="btn btn-default btn-icon btn-fn-delete"><i class="fe-trash"></i><span>Delete</span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- block end: page actions -->
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -38,10 +25,7 @@ else
 
     <div class="content-main">
 
-        <!-- Start Content-->
         <div class="container-fluid">
-
-            <!-- This wrapper should not be rendered. Handled by blazor -->
             <div data-js-toggle="tab-news-general">
                 <div class="row">
                     <div class="col-lg-6">
@@ -54,7 +38,7 @@ else
 
                     </div>
                 </div>
-            </div>            
+            </div>
         </div> <!-- container -->
 
     </div> <!-- content -->
@@ -65,8 +49,8 @@ else
             <div class="row">
                 <div class="col-12">
                     <div class="page-actions page-actions--bottom">
-                        <button type="button" class="btn btn-default btn-fn-cancel">Cancel</button>
-                        <button type="button" class="btn btn-primary btn-fn-submit" disabled="" data-mcb-js-submit="#form-general, #form-meta-data">Save</button>
+                        <button type="button" class="btn btn-default btn-fn-cancel" @onclick="@(() => { _uriHelper.NavigateTo("/news");})">Cancel</button>
+                        <button type="button" class="btn btn-primary btn-fn-submit" @onclick="SaveNews">Save</button>
                     </div>
                 </div>
             </div>

@@ -10,8 +10,8 @@ namespace MCB.Memphis.Web.Pages.News
 {
     public class NewsIndexComponent : ComponentBase
     {
-        protected bool ConfirmDialogVisible { get; set; } = false;
-        protected int ToDeleteNewsGuid { get; set; } = 0;
+        protected bool ConfirmDialogVisible { get; set; }
+        protected int ToDeleteNewsGuid { get; set; }
 
         [Inject]
         public INewsService _newsService { get; set; }
@@ -41,7 +41,7 @@ namespace MCB.Memphis.Web.Pages.News
         {
             _newsService.Delete(newsGuid);
             newsList = _newsService.GetAllNews(10535);
-            StateHasChanged();
+            HideConfirmDialog();
         }
     }
 }

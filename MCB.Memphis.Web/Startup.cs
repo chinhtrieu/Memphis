@@ -44,7 +44,7 @@ namespace MCB.Memphis.Web
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<INewsService, MCB.Memphis.MockServices.News.NewsService>();
+            services.AddSingleton<INewsService, MCB.Memphis.Services.News.NewsService>();
 
         }
 
