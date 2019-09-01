@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace MCB.Memphis.Web.Areas.Identity
+namespace MCB.Memphis.Web
 {
     /// <summary>
     /// An <see cref="AuthenticationStateProvider"/> service that revalidates the

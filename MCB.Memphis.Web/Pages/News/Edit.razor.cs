@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MCB.Memphis.Web.Pages.News
 {
-    public class NewsEditComponent : ComponentBase
+    public class NewsEditComponent : BasePage
     {
         [Inject]
         public INewsService _newsService { get; set; }

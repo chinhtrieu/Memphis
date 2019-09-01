@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MCB.Memphis.Web.Components.News
 {
-    public class NewsFilesComponent : ComponentBase
+    public class NewsFilesComponent : BaseComponent
     {
         [Parameter]
         public NewsModel NewsModel { get; set; }

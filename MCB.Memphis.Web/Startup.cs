@@ -1,24 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MCB.Memphis.Web.Areas.Identity;
 using MCB.Memphis.Web.Data;
 using MCB.Memphis.Core.Services;
 using MCB.Memphis.Services.News;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using SD.LLBLGen.Pro.DQE.SqlServer;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity;
 
 namespace MCB.Memphis.Web
 {
@@ -35,17 +32,40 @@ namespace MCB.Memphis.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            // ******
+            // BLAZOR COOKIE Auth Code (begin)
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = new PathString("/Account/Login");
+                options.ReturnUrlParameter = "returnUrl";
+            });
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+            });
+
+            //// BLAZOR COOKIE Auth Code (end)
+            //// ******
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<INewsService, MCB.Memphis.Services.News.NewsService>();
+            services.AddScoped<INewsService, MCB.Memphis.Services.News.NewsService>();
+            services.AddScoped<IAdminSiteService, MCB.Memphis.Services.AdminSites.AdminSiteService>();
 
+            // BLAZOR COOKIE Auth Code (begin)
+            // From: https://github.com/aspnet/Blazor/issues/1554
+            // HttpContextAccessor
+            services.AddHttpContextAccessor();
+            services.AddScoped<HttpContextAccessor>();
+            services.AddHttpClient();
+            services.AddScoped<HttpClient>();
+            // BLAZOR COOKIE Auth Code (end)
+            // ******
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +77,7 @@ namespace MCB.Memphis.Web
                                             c => c.SetTraceLevel(TraceLevel.Verbose)
                                                     .AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory))
                                                     .SetDefaultCompatibilityLevel(SqlServerCompatibilityLevel.SqlServer2012));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -74,13 +95,18 @@ namespace MCB.Memphis.Web
 
             app.UseRouting();
 
+            // ******
+            // BLAZOR COOKIE Auth Code (begin)
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            // BLAZOR COOKIE Auth Code (end)
+            // ******
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub<App>(selector: "app");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapFallbackToPage("/_Host");
             });
         }

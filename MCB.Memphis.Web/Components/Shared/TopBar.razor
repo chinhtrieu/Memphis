@@ -1,4 +1,6 @@
-﻿@using MCB.Memphis.Web.Components.Layout
+﻿@inherits TopBarComponent
+@using MCB.Memphis.Web.Components.Layout
+
 <!-- Region: topbar -->
 
 <div class="navbar-custom" data-js-unwrap>
@@ -18,7 +20,15 @@
 
             <!-- Block: site list picker -->
             <div class="sites-picker">
-                <select class="selectpicker" data-live-search="true" data-size="20" data-style="btn-default" data-display="static" data-mcb-js-sitelist></select>
+                <select class="selectpicker" data-live-search="true" data-size="20" data-style="btn-default" data-display="static">
+                    @if(adminSiteModels != null){
+                        foreach(var item in adminSiteModels){
+                            <option value="@item.SiteGuid">@item.SiteName</option>
+                        }                        
+                    }
+
+
+                </select>
             </div>
             <!-- Block end: site list picker -->
 
@@ -171,7 +181,7 @@
                     </a>
                     <div class="dropdown-divider"></div>
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="/account/logout" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -194,7 +204,3 @@
 
     </ul>
 </div>
-<!-- Region end: topbar -->
-@code {
-
-}

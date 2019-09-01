@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="container">
+    <div class="row justify-content-center">
+        <div>
+            <div class="card bg-pattern">
+                <div class="card-body p-4">
+
+                    <div class="text-center w-75 m-auto">
+                        <a href="index.html">
+                            <span><img src="assets/images/logo-dark.png" alt="" height="22"></span>
+                        </a>
+                        <p class="text-muted mb-4 mt-3">Enter your user name and password to access admin panel.</p>
+                    </div>
+
+                    <form method="post" action="/account/login">
+                        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                        <div class="form-group mb-3">
+                            <label for="userName">User name</label>
+                            <input class="form-control" type="text" id="userName" name="userName" placeholder="Enter your user name">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="password">Password</label>
+                            <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password">
+                        </div>                        
+                        <div class="form-group mb-0 text-center">
+                            <button class="btn btn-primary btn-block" type="submit"> Log In </button>
+                        </div>
+
+                    </form>
+                </div> 
+            </div>
+            
+        </div>
+    </div>    
+</div>
+

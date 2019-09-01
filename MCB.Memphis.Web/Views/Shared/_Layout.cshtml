@@ -1,9 +1,6 @@
-﻿@page "/"
-@namespace MCB.Memphis.Web.Pages
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿<!DOCTYPE html>
 
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8" />
     <title>MCB CMS</title>
@@ -28,13 +25,10 @@
     <!-- memphis/domf font -->
     <link rel="stylesheet" href="https://use.typekit.net/bbf5nxa.css">
 </head>
-<body class="enlarged">
-    <app>
-        @* Remove the following line of code to disable prerendering *@
-        @(await Html.RenderStaticComponentAsync<App>())
-    </app>
-
-    <script src="_framework/blazor.server.js"></script>
+<body class="authentication-bg authentication-bg-pattern">
+    <div class="account-pages mt-5 mb-5">
+        @RenderBody()
+    </div>
 
     <!-- #region: Vendor js (don't change the order) -->
     <!-- concatenate to vendor.js in backend -->

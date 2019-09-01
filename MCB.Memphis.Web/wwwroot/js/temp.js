@@ -1,10 +1,14 @@
 var layout = $.extend(true, {}, layout || {}, {
     touch: {},
-    newsedit: function () {}
+    sitelist: function () {},
+    grouplist: function () {},
+    productgrouplist: function () {},
 });
 
 const PATHS = {
-    sitelist: 'assets/data/jssites.json'
+    sitelist: 'assets/data/jssites.json',
+    grouplist: 'assets/data/jsgroups.json',
+    productgrouplist: 'assets/data/jsproductgroups.json'
 };
 
 
@@ -14,51 +18,6 @@ var includeHtmlUnwrapCount = 0,
 
 window.devmode = true;
 
-
-layout.sitelist = function (el) {
-    $.get(PATHS.sitelist, function (responseJSON) {
-
-        var options = responseJSON.map(function (n, index) {
-                return '<option value="' + index + '"' + (n.Selected ? " selected " : "") + ' >' + n.Name + '</option>';
-            })
-            .join('');
-
-        var selectedVal = responseJSON.filter(function (n) { return n.Selected; });
-
-        $(el).html(options);
-
-        $(el).selectpicker('destroy').selectpicker('render');
-
-        // Hide side menu if opening on narrow view
-        $(el).on('show.bs.select', function (e) {
-            $.App.$el.body.removeClass('sidebar-enable');
-        })
-
-        // Redirect site
-        $(el).on('change', function () {
-            if (this.value != gup('SiteGuid')) {
-                window.location = window.location.origin + '/?SiteGuid=' + this.value;
-            }
-        });
-
-        // Set selected site
-        if (window.location.search) {
-            $(el).selectpicker('val', gup('SiteGuid'));
-        }
-    });
-}
-
-function gup(name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.href);
-    if (results == null)
-        return "";
-    else
-        return results[1];
-}
-
 function includeHtmlUnwrap() {
     includeHtmlUnwrapCount++;
 
@@ -67,41 +26,86 @@ function includeHtmlUnwrap() {
 
         $('[data-js-unwrap]').unwrap().removeAttr('data-js-unwrap');
 
-        // Call here for this test project ONLY
-        // Re-asign as delay of render html
-        $.App.$el = {
-            body: $('body'),
-            logoBox: $('.logo-box'),
-            navbarCustom: $('.navbar-custom'),
-            sitesPicker: $('.sites-picker'),
-            leftSideMenu: $('.left-side-menu'),
-            contentPage: $('.content-page'),
-            contentMain: $('.content-main'),
-            contentStickableTop: $('.content-top.stickable'),
-            contentStickableBottom: $('.content-bottom.stickable'),
-            footer: $('.content-page > footer')
-        };
-
-        $.App.init();
-
-        // Fix firefox
-        $('.form-control.selectpicker').selectpicker();
-
-
-        layout.newsedit();
-
-        // call here cause partial view lazy load
-        // it's already in app.js
-        $('#status').fadeOut();
-        $('#preloader').delay(200).fadeOut('slow');
+        // !IMPORTANT
+        // Create and dispatch the EVENT.
+        var event = new CustomEvent('mcbready');
+        document.dispatchEvent(event);
     }
-}
+};
+myUnwrap = setInterval(includeHtmlUnwrap, INCLUDE_HTML_DURATION);
 
-$(function () {
 
-    myUnwrap = setInterval(includeHtmlUnwrap, INCLUDE_HTML_DURATION);
 
-    layout.sitelist('[data-mcb-js-sitelist]');
+layout.sitelist = function (el) {
+    if ($(el).length == 0) return;
+
+    $.get(PATHS.sitelist, function (responseJSON) {
+
+        var options = responseJSON.map(function (n, index) {
+                return '<option value="' + index + '"' + (n.Selected ? " selected " : "") + ' >' + n.Name + '</option>';
+            })
+            .join('');
+
+        var urlParams = new URLSearchParams(window.location.search)
+        siteGuid = urlParams.get('siteGuid');
+
+        $(el).html(options);
+        $(el).selectpicker();
+
+        // Set selected site
+        if (siteGuid != undefined) {
+            $(el).selectpicker('val', siteGuid);
+        }
+
+        // Hide side menu if opening on narrow view
+        $(el).on('show.bs.select', function (e) {
+            $.App.$el.body.removeClass('sidebar-enable');
+        }).on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            window.location = window.location.origin + '/?siteGuid=' + this.value;
+        });
+    });
+};
+
+layout.grouplist = function (el) {
+    if ($(el).length == 0) return;
+
+    $.get(PATHS.grouplist, function (responseJSON) {
+
+        var options = responseJSON.map(function (n, index) {
+                return '<option value="' + index + '"' + (n.Selected ? " selected " : "") + ' >' + n.Name + '</option>';
+            })
+            .join('');
+
+        $(el).html(options);
+        $(el).selectpicker();
+    });
+};
+
+layout.productgrouplist = function (el) {
+    if ($(el).length == 0) return;
+
+    $.get(PATHS.productgrouplist, function (responseJSON) {
+
+        var options = responseJSON.map(function (n, index) {
+                return '<option value="' + index + '"' + (n.Selected ? " selected " : "") + ' >' + n.Name + '</option>';
+            })
+            .join('');
+
+        $(el).html(options);
+        $(el).selectpicker();
+    });
+};
+
+
+$(document).on('mcbready', function () {
+    $('#status').fadeOut();
+    $('#preloader').delay(200).fadeOut('slow');
+
+    $.App.init();
+
+    layout.sitelist('.sites-picker select');
+    layout.grouplist('.filterbar__compact .form-group--f-groups select');
+    layout.productgrouplist('.filterbar__expand .form-group--f-groups select');
 
     $('form.needs-validation').on('submit', function (e) {
         e.preventDefault();
@@ -112,4 +116,4 @@ $(function () {
 
         $(forms).submit();
     });
-})
+});

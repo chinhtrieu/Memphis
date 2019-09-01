@@ -22,7 +22,7 @@ namespace MCB.Memphis.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true").UseStartup<Startup>();
                 });
     }
 }

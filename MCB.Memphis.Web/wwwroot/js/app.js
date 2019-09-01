@@ -290,6 +290,14 @@ function($) {
         }
     },
 
+    FormAdvanced.prototype.initSelectpicker = function () {
+        if ($.fn.selectpicker) {
+            $('[data-plugin="bootstrap-select"]').each(function (idx, obj) {
+                $(this).selectpicker();
+            });
+        }
+    },
+
     // //initializing Custom Select
     // FormAdvanced.prototype.initCustomSelect = function() {
     //     $('[data-plugin="customselect"]').niceSelect();
@@ -327,7 +335,8 @@ function($) {
         this.initSelect2(),
         this.initMaxLength(),
         this.initSummernote(),
-        this.initDropzone()
+        this.initDropzone(),
+        this.initSelectpicker()
         // this.initCustomSelect(),
         // this.initSwitchery(),
         // this.initMultiSelect(),
@@ -370,27 +379,7 @@ function ($) {
 
     const VIEWPORT_WIDTH_MD = 768;
 
-    var App = function () {
-        this.$el = {
-            body: $('body'),
-            logoBox: $('.logo-box'),
-            navbarCustom: $('.navbar-custom'),
-            sitesPicker: $('.sites-picker'),
-            leftSideMenu: $('.left-side-menu'),
-            contentPage: $('.content-page'),
-            contentMain: $('.content-main'),
-            contentStickableTop: $('.content-top.stickable'),
-            contentStickableBottom: $('.content-bottom.stickable'),
-            footer: $('.content-page > footer')
-        };
-        this.sticky = {
-            forceUpdate: false
-        };
-        this.form = {
-            hasChanged: false
-        };
-        this.$window = $(window);
-    };
+    var App = function () {};
 
     /**
     Resets the scroll
@@ -501,12 +490,6 @@ function ($) {
             $(this).toggleClass('open');
             $('#navigation').slideToggle(400);
         });
-
-        // Preloader
-        $(window).on('load', function () {
-            $('#status').fadeOut();
-            $('#preloader').delay(350).fadeOut('slow');
-        });
     },
 
     /**
@@ -615,7 +598,6 @@ function ($) {
 
         this.$el.logoBox.css('width', marginLeft);
         this.$el.contentPage.css('margin-left', marginLeft);
-        this.$el.footer.css('left', marginLeft);
     },
 
     App.prototype.scrollToElement = function (elToScroll, elToFocus) {
@@ -654,6 +636,28 @@ function ($) {
     //initilizing
     App.prototype.init = function () {
         var $this = this;
+
+        this.$el = {
+            body: $('body'),
+            logoBox: $('.logo-box'),
+            navbarCustom: $('.navbar-custom'),
+            sitesPicker: $('.sites-picker'),
+            leftSideMenu: $('.left-side-menu'),
+            contentPage: $('.content-page'),
+            contentMain: $('.content-main'),
+            contentStickableTop: $('.content-top.stickable'),
+            contentStickableBottom: $('.content-bottom.stickable'),
+            footer: $('.content-page > footer')
+        };
+        this.sticky = {
+            forceUpdate: false
+        };
+        this.form = {
+            hasChanged: false
+        };
+        this.$window = $(window);
+
+
         this.initLayout();
         this.initMenu();
         this.handleStickyActions();
@@ -686,13 +690,15 @@ function ($) {
 // * We will call again when rendering done, in temp.js
 // * TODO: Please INCLUDE this in backend
 
- ,function ($) {
-     "use strict";
-     $.App.init();
- }(window.jQuery);
+// ,function ($) {
+//     "use strict";
+//     $.App.init();
+// }(window.jQuery);
 
 
-
+window.InitApp = function () {
+    $.App.init();
+}
 
 
 

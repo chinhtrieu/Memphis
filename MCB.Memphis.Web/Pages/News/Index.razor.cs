@@ -1,6 +1,7 @@
 ﻿using MCB.Memphis.Core.Model;
 using MCB.Memphis.Core.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MCB.Memphis.Web.Pages.News
 {
-    public class NewsIndexComponent : ComponentBase
+    public class NewsIndexComponent : BasePage
     {
         protected bool ConfirmDialogVisible { get; set; }
         protected int ToDeleteNewsGuid { get; set; }
@@ -17,8 +18,12 @@ namespace MCB.Memphis.Web.Pages.News
         public INewsService _newsService { get; set; }
         [Inject]
         public IUriHelper _uriHelper { get; set; }
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
+        protected List<NewsModel> newsList;
 
-        protected List<NewsModel> newsList;        
+        [Inject]
+        IComponentContext ComponentContext { get; set; }
         protected override async Task OnInitializedAsync()
         {
             newsList = await _newsService.GetAllNewsAsync(10535);
@@ -42,6 +47,7 @@ namespace MCB.Memphis.Web.Pages.News
             _newsService.Delete(newsGuid);
             newsList = _newsService.GetAllNews(10535);
             HideConfirmDialog();
-        }
+        }        
     }
 }
+
