@@ -1,4 +1,5 @@
-﻿using MCB.Memphis.Core.Model;
+﻿using MCB.Memphis.Core;
+using MCB.Memphis.Core.Model;
 using MCB.Memphis.Core.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -19,14 +20,19 @@ namespace MCB.Memphis.Web.Pages.News
         [Inject]
         public IUriHelper _uriHelper { get; set; }
         [Inject]
-        public IJSRuntime JSRuntime { get; set; }
-        protected List<NewsModel> newsList;
+        public AppStateProvider AppStateProvider { get; set; }
 
-        [Inject]
-        IComponentContext ComponentContext { get; set; }
+        protected List<NewsModel> newsList;
         protected override async Task OnInitializedAsync()
         {
-            newsList = await _newsService.GetAllNewsAsync(10535);
+            newsList = await _newsService.GetAllNewsAsync(AppStateProvider.SiteGuid);
+            AppStateProvider.OnSiteGuidChanged += OnSiteGuidChanged;
+        }
+
+        private void OnSiteGuidChanged()
+        {
+            newsList = _newsService.GetAllNews(AppStateProvider.SiteGuid);
+            StateHasChanged();
         }
         protected void ShowConfirmDialog(int newsGuid)
         {
@@ -40,14 +46,13 @@ namespace MCB.Memphis.Web.Pages.News
             ToDeleteNewsGuid = 0;
             ConfirmDialogVisible = false;
             StateHasChanged();
-
         }
         protected void DeleteNews(int newsGuid)
         {
             _newsService.Delete(newsGuid);
-            newsList = _newsService.GetAllNews(10535);
+            newsList = _newsService.GetAllNews(AppStateProvider.SiteGuid);
             HideConfirmDialog();
-        }        
+        }
     }
 }
 

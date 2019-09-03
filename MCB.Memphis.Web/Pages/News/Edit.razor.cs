@@ -1,4 +1,5 @@
-﻿using MCB.Memphis.Core.Model;
+﻿using MCB.Memphis.Core;
+using MCB.Memphis.Core.Model;
 using MCB.Memphis.Core.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -20,10 +21,15 @@ namespace MCB.Memphis.Web.Pages.News
         [Parameter]
         public int NewsGuid { get; set; }
 
+        [Inject]
+        public AppStateProvider AppStateProvier { get; set; }
+
         protected NewsModel newsModel;
        
         protected override async Task OnInitializedAsync()
         {
+            AppStateProvier.OnSiteGuidChanged += OnSiteGuidChanged;
+
             if (NewsGuid > 0)
             {
                 newsModel = await _newsService.GetNewsAsync(NewsGuid);
@@ -33,6 +39,11 @@ namespace MCB.Memphis.Web.Pages.News
                 newsModel = new NewsModel();
             }
             if(newsModel == null) _uriHelper.NavigateTo("/404");
+        }
+
+        private void OnSiteGuidChanged()
+        {
+            _uriHelper.NavigateTo("/news");
         }
 
         protected void SaveNews()

@@ -1,206 +1,117 @@
 ﻿@inherits TopBarComponent
 @using MCB.Memphis.Web.Components.Layout
 
-<!-- Region: topbar -->
+<AuthorizeView>
+    <div class="navbar-custom" data-js-unwrap>
 
-<div class="navbar-custom" data-js-unwrap>
+        <!-- Block: logo -->
+        <div class="logo-box">
+            <a href="index.html" class="logo"></a>
+        </div>
+        <!-- Block end: logo -->
 
-    <!-- Block: logo -->
-    <div class="logo-box">
-        <a href="index.html" class="logo"></a>
-    </div>
-    <!-- Block end: logo -->
+        <ul class="list-unstyled topnav-menu topnav-menu--app">
+            <li class="menu-icon">
+                <button class="button-menu-mobile"><i class="fe-menu"></i></button>
+            </li>
 
-    <ul class="list-unstyled topnav-menu topnav-menu--app">
-        <li class="menu-icon">
-            <button class="button-menu-mobile"><i class="fe-menu"></i></button>
-        </li>
+            <li class="dropdown">
 
-        <li class="dropdown">
+                <div class="sites-picker">
+                    <select @onchange="OnSiteGuidChange" class="scrollable" data-live-search="true" data-style="btn-default" data-display="static" data-plugin="bootstrap-select">
+                        @if (adminSiteModels != null)
+                        {
+                            foreach (var item in adminSiteModels)
+                            {
+                                <option value="@item.SiteGuid" selected="@(item.SiteGuid == AppStateProvider.SiteGuid ? "true" : "false")">@item.SiteName</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </li>
+        </ul>
 
-            <!-- Block: site list picker -->
-            <div class="sites-picker">
-                <select class="selectpicker" data-live-search="true" data-size="20" data-style="btn-default" data-display="static">
-                    @if(adminSiteModels != null){
-                        foreach(var item in adminSiteModels){
-                            <option value="@item.SiteGuid">@item.SiteName</option>
-                        }                        
-                    }
+        <ul class="list-unstyled topnav-menu topnav-menu--user">
 
+            <li class="topnav-menu__search">
 
-                </select>
-            </div>
-            <!-- Block end: site list picker -->
+                <!-- Block: search -->
+                <form class="app-search" action='.'>
+                    <div class="app-search__box">
+                        <div class="input-group input-group--search">
+                            <input type="search" class="form-control app-search__key" placeholder="Search...">
 
-        </li>
-    </ul>
-
-    <ul class="list-unstyled topnav-menu topnav-menu--user">
-
-        <li class="topnav-menu__search">
-
-            <!-- Block: search -->
-            <form class="app-search" action='.'>
-                <div class="app-search__box">
-                    <div class="input-group input-group--search">
-                        <input type="search" class="form-control app-search__key" placeholder="Search...">
-
-                        <div class="input-group-append">
-                            <button class="btn app-search__submit" type="submit">
-                                <i class="fe-search"></i>
-                            </button>
+                            <div class="input-group-append">
+                                <button class="btn app-search__submit" type="submit">
+                                    <i class="fe-search"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
+                </form>
+                <!-- Block end: search -->
+
+            </li>
+
+            <li class="topnav-menu__dropdown">
+
+                <!-- Block: notification -->
+                <div class="dropdown notification-list">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">
+                        <i class="fe-bell noti-icon"></i>
+                        <span class="badge badge-warning noti-icon-badge"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-lg">
+                        
+                    </div>
                 </div>
-            </form>
-            <!-- Block end: search -->
+                <!-- Block end: notification -->
 
-        </li>
+            </li>
 
-        <li class="topnav-menu__dropdown">
+            <li class="topnav-menu__dropdown">
 
-            <!-- Block: notification -->
-            <div class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <i class="fe-bell noti-icon"></i>
-                    <span class="badge badge-warning noti-icon-badge">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-lg">
-                    <!-- item-->
-                    <div class="dropdown-item noti-title">
-                        <h5>Notification</h5>
-                        <span class="noti-title__close">
-                            <a href="javscript:;" class="close">Clear All</a>
+                <div class="dropdown notification-list profile-menu">
+
+                    <a class="nav-link dropdown-toggle profile-menu__user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <span class="profile-menu__user-name">
+                            @context.User.Identity.Name <i class="fe-chevron-down">0</i>
                         </span>
-                    </div>
-                    <div class="slimscroll noti-scroll">
+                    </a>
+
+                    <div class="dropdown-menu profile-menu__dropdown">                        
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item active">
-                            <div class="notify-icon">
-                                <img src="assets/images/users/user-1.jpg" class="img-fluid img-user" alt="" />
-                            </div>
-                            <p class="notify-details">Cristina Pride</p>
-                            <p class="text-muted mb-0 user-msg">
-                                <small>Hi, How are you? What about our next meeting</small>
-                            </p>
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="fe-user"></i>
+                            <span>My Account</span>
                         </a>
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary">
-                                <i class="mdi mdi-comment-account-outline"></i>
-                            </div>
-                            <p class="notify-details">
-                                Caleb Flakelar commented on Admin
-                                <small class="text-muted">1 min ago</small>
-                            </p>
-                        </a>
+                            <i class="fe-settings"></i>
+                            <span>Settings</span>
+                        </a>                       
+                        <div class="dropdown-divider"></div>
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon">
-                                <img src="assets/images/users/user-4.jpg" class="img-fluid img-user" alt="" />
-                            </div>
-                            <p class="notify-details">Karen Robinson</p>
-                            <p class="text-muted mb-0 user-msg">
-                                <small>Wow ! this admin looks good and awesome design</small>
-                            </p>
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning">
-                                <i class="mdi mdi-account-plus"></i>
-                            </div>
-                            <p class="notify-details">
-                                New user registered.
-                                <small class="text-muted">5 hours ago</small>
-                            </p>
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-info">
-                                <i class="mdi mdi-comment-account-outline"></i>
-                            </div>
-                            <p class="notify-details">
-                                Caleb Flakelar commented on Admin
-                                <small class="text-muted">4 days ago</small>
-                            </p>
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-secondary">
-                                <i class="mdi mdi-heart"></i>
-                            </div>
-                            <p class="notify-details">
-                                Carlos Crouch liked
-                                <b>Admin</b>
-                                <small class="text-muted">13 days ago</small>
-                            </p>
+                        <a href="/account/logout" class="dropdown-item notify-item">
+                            <i class="fe-log-out"></i>
+                            <span>Logout</span>
                         </a>
                     </div>
-                    <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
-                        View all
-                        <i class="fe-chevron-right"></i>
+                </div>
+
+            </li>
+
+
+            <li class="topnav-menu__dropdown">
+
+                <div class="dropdown notification-list">
+                    <a href="javascript:void(0);" class="nav-link right-bar-toggle">
+                        <i class="fe-settings noti-icon"></i>
                     </a>
                 </div>
-            </div>
-            <!-- Block end: notification -->
 
-        </li>
+            </li>
 
-        <li class="topnav-menu__dropdown">
-
-            <!-- Block: notification -->
-            <div class="dropdown notification-list profile-menu">
-
-                <a class="nav-link dropdown-toggle profile-menu__user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="assets/images/users/user-1.jpg" alt="user-image" class="profile-menu__user-img img-user">
-                    <span class="profile-menu__user-name">
-                        Brugernavn <i class="fe-chevron-down"></i>
-                    </span>
-                </a>
-
-                <div class="dropdown-menu profile-menu__dropdown">
-                    <!-- item-->
-                    <div class="dropdown-header noti-title">
-                        <h6>Welcome !</h6>
-                    </div>
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-user"></i>
-                        <span>My Account</span>
-                    </a>
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-settings"></i>
-                        <span>Settings</span>
-                    </a>
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-lock"></i>
-                        <span>Lock Screen</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <!-- item-->
-                    <a href="/account/logout" class="dropdown-item notify-item">
-                        <i class="fe-log-out"></i>
-                        <span>Logout</span>
-                    </a>
-                </div>
-            </div>
-            <!-- Block end: notification -->
-
-        </li>
-
-
-        <li class="topnav-menu__dropdown">
-
-            <div class="dropdown notification-list">
-                <a href="javascript:void(0);" class="nav-link right-bar-toggle">
-                    <i class="fe-settings noti-icon"></i>
-                </a>
-            </div>
-
-        </li>
-
-    </ul>
-</div>
+        </ul>
+    </div>
+</AuthorizeView>
