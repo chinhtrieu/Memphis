@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using MCB.Memphis.Core;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ namespace MCB.Memphis.Web.Pages
 
         [Inject]
         IComponentContext ComponentContext { get; set; }
+
+        [Inject]
+        public AppStateProvider AppState { get; set; }
+
         protected override async Task OnAfterRenderAsync()
         {            
             if (!ComponentContext.IsConnected)

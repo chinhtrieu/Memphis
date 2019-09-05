@@ -1,12 +1,11 @@
 ﻿@inherits TopBarComponent
-@using MCB.Memphis.Web.Components.Layout
 
 <AuthorizeView>
     <div class="navbar-custom" data-js-unwrap>
 
         <!-- Block: logo -->
         <div class="logo-box">
-            <a href="index.html" class="logo"></a>
+            <a href="/" class="logo"></a>
         </div>
         <!-- Block end: logo -->
 
@@ -18,12 +17,13 @@
             <li class="dropdown">
 
                 <div class="sites-picker">
+
                     <select @onchange="OnSiteGuidChange" class="scrollable" data-live-search="true" data-style="btn-default" data-display="static" data-plugin="bootstrap-select">
                         @if (adminSiteModels != null)
                         {
                             foreach (var item in adminSiteModels)
                             {
-                                <option value="@item.SiteGuid" selected="@(item.SiteGuid == AppStateProvider.SiteGuid ? "true" : "false")">@item.SiteName</option>
+                                <option value="@item.Value" selected="@(item.Selected ? "true" : "false")">@item.Text</option>
                             }
                         }
                     </select>
@@ -59,11 +59,8 @@
                 <div class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="fe-bell noti-icon"></i>
-                        <span class="badge badge-warning noti-icon-badge"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-lg">
-                        
-                    </div>
+                        <span class="badge badge-warning noti-icon-badge">0</span>
+                    </a>                    
                 </div>
                 <!-- Block end: notification -->
 
@@ -73,13 +70,13 @@
 
                 <div class="dropdown notification-list profile-menu">
 
-                    <a class="nav-link dropdown-toggle profile-menu__user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle profile-menu__user" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">
                         <span class="profile-menu__user-name">
-                            @context.User.Identity.Name <i class="fe-chevron-down">0</i>
+                            @context.User.Identity.Name <i class="fe-chevron-down"></i>
                         </span>
                     </a>
 
-                    <div class="dropdown-menu profile-menu__dropdown">                        
+                    <div class="dropdown-menu profile-menu__dropdown">
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <i class="fe-user"></i>
@@ -89,13 +86,11 @@
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <i class="fe-settings"></i>
                             <span>Settings</span>
-                        </a>                       
+                        </a>
                         <div class="dropdown-divider"></div>
                         <!-- item-->
-                        <a href="/account/logout" class="dropdown-item notify-item">
-                            <i class="fe-log-out"></i>
-                            <span>Logout</span>
-                        </a>
+
+                        <a href="/account/logout" class="dropdown-item notify-item">Logout</a>
                     </div>
                 </div>
 
@@ -109,9 +104,7 @@
                         <i class="fe-settings noti-icon"></i>
                     </a>
                 </div>
-
             </li>
-
         </ul>
     </div>
 </AuthorizeView>

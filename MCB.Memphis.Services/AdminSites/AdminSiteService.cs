@@ -13,7 +13,7 @@ namespace MCB.Memphis.Services.AdminSites
 {
     public class AdminSiteService : IAdminSiteService
     {
-        public List<AdminSiteModel> GetAdminSites(int siteUserGuid)
+        public AdminSitesCollection GetAdminSites(int siteUserGuid)
         {
             MCB.MasterPiece.Data.CollectionClasses.AdminSitesCollection adminSites = new AdminSitesCollection();
 
@@ -36,16 +36,9 @@ namespace MCB.Memphis.Services.AdminSites
 
             adminSites.GetMulti(filter, 0, sort, relations);
 
-            return adminSites.Select(m => ToAdminSiteModel(m)).ToList();
+            return adminSites;
         }
 
-        private AdminSiteModel ToAdminSiteModel(AdminSitesEntity adminSitesEntity)
-        {
-            return new AdminSiteModel
-            {
-                SiteGuid = adminSitesEntity.SiteGuid,
-                SiteName = adminSitesEntity.CostumerFullname
-            };
-        }
+        
     }
 }

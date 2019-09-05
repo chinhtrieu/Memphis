@@ -68,21 +68,20 @@ namespace MCB.Memphis.Web
             // DI
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IAdminSiteService, Services.AdminSites.AdminSiteService>();
+            services.AddScoped<IAdminUserService, AdminUserService>();
             services.AddScoped<AppStateProvider, AppStateProvider>();
             services.AddScoped<IHashingService, PBKDF2HashingService>();
-            services.AddScoped<IAdminUserService, AdminUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            MCB.MasterPiece.Data.DaoClasses.CommonDaoBase.ActualConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            MCB.MasterPiece.Data.DaoClasses.CommonDaoBase.ActualConnectionString = MCB.Configuration.ServerConfig.GetConnectionString(5);
             // Configure the DQE
             RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(
                                             c => c.SetTraceLevel(TraceLevel.Verbose)
                                                     .AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory))
                                                     .SetDefaultCompatibilityLevel(SqlServerCompatibilityLevel.SqlServer2012));
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

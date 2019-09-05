@@ -51,13 +51,11 @@ namespace MCB.Memphis.Web.Controllers
                     {
                         new Claim(ClaimTypes.Name, adminUser.UserFullName),
                         new Claim("UserGuid", adminUser.UserGuid.ToString()),
-                        new Claim("MyAccumoloLastSiteGuid", adminUser.MyAccumoloLastSiteGuid.ToString()),
                     };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var authProperties = new AuthenticationProperties
                     {
-                        RedirectUri = Request.Host.Value,
-                        
+                        RedirectUri = Request.Host.Value                        
                     };
                     try
                     {

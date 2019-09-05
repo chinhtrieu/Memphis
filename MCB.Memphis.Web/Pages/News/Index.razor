@@ -1,6 +1,5 @@
 ﻿@page "/news"
 @inherits NewsIndexComponent
-@using MCB.Memphis.Web.Components.Layout
 
 @if (newsList == null)
 {
@@ -57,7 +56,7 @@ else
                                 {
 
                                     <tr class="row-data">
-                                        <td class="col-name">@item.NewsStartDate</td>
+                                        <td class="col-name">@item.NewsStartDate.ToString("dd/MM/yyyy")</td>
                                         <td class="col-name"><a href="/news/@item.NewsGuid">@item.NewsHeadline</a></td>
                                         <td class="col-action">
                                             <div class="row-actions">

@@ -18,20 +18,18 @@ namespace MCB.Memphis.Web.Pages.News
         [Inject]
         public INewsService _newsService { get; set; }
         [Inject]
-        public IUriHelper _uriHelper { get; set; }
-        [Inject]
-        public AppStateProvider AppStateProvider { get; set; }
+        public IUriHelper _uriHelper { get; set; }        
 
         protected List<NewsModel> newsList;
         protected override async Task OnInitializedAsync()
         {
-            newsList = await _newsService.GetAllNewsAsync(AppStateProvider.SiteGuid);
-            AppStateProvider.OnSiteGuidChanged += OnSiteGuidChanged;
+            newsList = await _newsService.GetAllNewsAsync(AppState.SiteGuid);
+            AppState.OnSiteGuidChanged += OnSiteGuidChanged;
         }
 
         private void OnSiteGuidChanged()
         {
-            newsList = _newsService.GetAllNews(AppStateProvider.SiteGuid);
+            newsList = _newsService.GetAllNews(AppState.SiteGuid);
             StateHasChanged();
         }
         protected void ShowConfirmDialog(int newsGuid)
@@ -50,7 +48,7 @@ namespace MCB.Memphis.Web.Pages.News
         protected void DeleteNews(int newsGuid)
         {
             _newsService.Delete(newsGuid);
-            newsList = _newsService.GetAllNews(AppStateProvider.SiteGuid);
+            newsList = _newsService.GetAllNews(AppState.SiteGuid);
             HideConfirmDialog();
         }
     }

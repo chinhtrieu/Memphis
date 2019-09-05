@@ -10,5 +10,6 @@ namespace MCB.Memphis.Core.Services
     {
         AdminUserEntity CheckUserLogin(SiteAdminTypeEnum adminSiteType, string userName, string password);
         AdminUserEntity CheckUserLoginWithHash(SiteAdminTypeEnum adminSiteType, string userName, string password);
+        AdminUserEntity GetAdminUser(int userGuid);
     }
 }

@@ -21,14 +21,12 @@ namespace MCB.Memphis.Web.Pages.News
         [Parameter]
         public int NewsGuid { get; set; }
 
-        [Inject]
-        public AppStateProvider AppStateProvier { get; set; }
 
         protected NewsModel newsModel;
        
         protected override async Task OnInitializedAsync()
         {
-            AppStateProvier.OnSiteGuidChanged += OnSiteGuidChanged;
+            AppState.OnSiteGuidChanged += OnSiteGuidChanged;
 
             if (NewsGuid > 0)
             {

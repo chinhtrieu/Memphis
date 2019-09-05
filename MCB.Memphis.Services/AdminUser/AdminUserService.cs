@@ -20,6 +20,15 @@ namespace MCB.Memphis.Services.AdminUser
             _hashingService = hashingService;
         }
 
+        public AdminUserEntity GetAdminUser(int userGuid)
+        {
+            var filter = new PredicateExpression();
+            filter.AddWithAnd(AdminUserFields.UserGuid == userGuid);
+            var userCollection = new AdminUserCollection();
+            userCollection.GetMulti(filter);
+            return userCollection.FirstOrDefault();
+        }
+
         public AdminUserEntity CheckUserLogin(SiteAdminTypeEnum adminSiteType, string userName, string password)
         {
             var adminUserCollection = GetAdminUserCollection(adminSiteType, userName, null, null);

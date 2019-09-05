@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using MCB.MasterPiece.Data.EntityClasses;
+using MCB.Memphis.Core.Services;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,38 +11,34 @@ namespace MCB.Memphis.Core
 {
     public class AppStateProvider
     {
-        private int _siteGuid;
-        private readonly AuthenticationStateProvider _authenticationStateProvider;
-        public Action OnSiteGuidChanged { get; set; }
-
-        private ClaimsPrincipal _user;
-        public ClaimsPrincipal User {
-            get { 
-                if(_user == null)
-                {
-                    _user = _authenticationStateProvider.GetAuthenticationStateAsync().Result.User;
-                }
-                return _user;
+        private AdminUserEntity _adminUserEntity;
+        public AppStateProvider(IAdminUserService adminUserService, AuthenticationStateProvider authenticationStateProvider)
+        {
+            var user = authenticationStateProvider.GetAuthenticationStateAsync().Result.User;
+            if (user.Identity.IsAuthenticated && int.TryParse(user.Claims.FirstOrDefault(m => m.Type.ToString() == "UserGuid").Value, out int userGuid))
+            {
+                _adminUserEntity = adminUserService.GetAdminUser(userGuid);
             }
         }
-        public AppStateProvider(AuthenticationStateProvider authenticationStateProvider)
-        {
-            _authenticationStateProvider = authenticationStateProvider;
-        }
+        private int _siteGuid;        
         public int SiteGuid
         {
-            get {
+            get
+            {
                 if (_siteGuid <= 0)
                 {
-                    if(User != null)
+                    if (_adminUserEntity != null)
                     {
-                        int.TryParse(User.Claims.FirstOrDefault(m => m.Type.ToString() == "MyAccumoloLastSiteGuid")?.Value, out _siteGuid);
+                        _siteGuid = _adminUserEntity.MyAccumoloLastSiteGuid.GetValueOrDefault(10535);
                     }
                 }
-                return _siteGuid > 0 ? _siteGuid : 10535;
+                return _siteGuid;
             }
-            set {
+            set
+            {
                 _siteGuid = value;
+                _adminUserEntity.MyAccumoloLastSiteGuid = value;
+                _adminUserEntity.Save();
                 if (OnSiteGuidChanged != null)
                 {
                     OnSiteGuidChanged.Invoke();
@@ -48,14 +46,8 @@ namespace MCB.Memphis.Core
             }
 
         }
-
-        public int UserGuid
-        {
-            get
-            {
-                int.TryParse(User.Claims.FirstOrDefault(m => m.Type.ToString() == "UserGuid")?.Value, out int userGuid);
-                return userGuid;
-            }
-        }
+        public Action OnSiteGuidChanged { get; set; }
+        public int UserGuid => _adminUserEntity != null ? _adminUserEntity.UserGuid : 0;            
+        
     }
 }
